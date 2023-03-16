@@ -5,6 +5,7 @@ import {v4 as uuidv4 } from 'uuid';
 import {encode, decode} from "../helper/jwtTokenize"
 import nodemailer from "nodemailer";
 import sgMail from "@sendgrid/mail";
+import jwt from "jsonwebtoken";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 class authController{
     static async signup(req, res){
@@ -140,17 +141,17 @@ class authController{
           const data = await mail.sendMail({
             from: "mirindisaidi19@outlook.com",
             to: email,
-            subject: "REB-QualityEducation Activation Email.",
+            subject: "Did you forget your password.",
             text: `
               Hello,
               Please copy and past the address bellow too reset your password.
-              http://${process.env.CLIENT_URL}/auth/rest-password/${token}
+              http://${process.env.CLIENT_URL}/auth/reset-password/${token}
               `,
             html: `
               <h1>Hello ${req.user.Fullname},</h1>
               <p>Reset your password.</p>
               <p>Please click the link below to reset your password.</p>
-            
+              http://${process.env.CLIENT_URL}/auth/reset-password/${token}
               `,
           });
           try {
@@ -172,6 +173,51 @@ class authController{
           return res.status(500).json({
             status: 500,
             message: error.message,
+          });
+        }
+      }
+
+      static async resetPassword(req, res) {
+        const token = req.params.token;
+        const password = req.body.password;
+        //const email=to
+        const payload = jwt.verify(token, process.env.RESET_PASSWORD_KEY);
+        req.user = payload;
+        const email = req.user.email;
+        console.log("email",email);
+        try {
+          const findUser = await users.findOne({
+            where: { resetlink: token },
+          });
+          if (!findUser) {
+            res.status(403).json({
+              status: 403,
+              message: "Invalid Link",
+            });
+          }
+          const saltRounds = 10;
+          const salt = await bcrypt.genSaltSync(saltRounds);
+          const hashedPassword = await bcrypt.hashSync(password, salt);
+          const updatedPassword = await users.update(
+            { password: hashedPassword,
+              resetlink:null },
+            {
+              where: { email:  email  },
+              returning: true,
+            }
+          );
+          res.status(200).json({
+            status: 200,
+            message: "You have reset successful your password",
+          });
+          return res.status(401).json({
+            status: 401,
+            message: "Invalid Link, please try again",
+          });
+        } catch (error) {
+          return res.status(500).json({
+            status: 500,
+            message: "Server error:" + error.message,
           });
         }
       }
