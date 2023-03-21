@@ -5,14 +5,21 @@ chai.should();
 chai.use(chaiHttp);
 
 describe("PUT /auth/forgot-password",()=>{
-    it("Forget password",(done)=>{
+    it("Forget password and reset it",(done)=>{
         chai.request(app)
         .put("/auth/forgot-password")
         .send({  email: "mirindisaidi19@gmail.com" })
         .end((err,response)=>{
-            response.should.have.status(200);
+            const RESET_PASSWORD_TOKEN =response.body.token
+            chai.request(app)
+            .put("/auth/reset-password/"+ RESET_PASSWORD_TOKEN)
+            .send({  password: "Koonew@3" })
+            .end((err,response)=>{
+                response.should.have.status(200);
             done()
+
         })
+    })
     })
   });
   describe("PUT /auth/forgot-password",()=>{
@@ -26,14 +33,3 @@ describe("PUT /auth/forgot-password",()=>{
         })
     })
   });
-//   describe("PUT auth/reset-password/:token",()=>{
-//     it("You have reset successful your password",(done)=>{
-//         chai.request(app)
-//         .put("/auth/reset-password/"+ RESET_PASSWORD_TOKEN)
-//         .send({  password: "Koonew@3" })
-//         .end((err,response)=>{
-//             response.should.have.status(200);
-//             done()
-//         })
-//     })
-//   });

@@ -168,6 +168,7 @@ class authController{
           return res.status(200).json({
             status: 200,
             message: "Message  sent successfully!",
+            token:token
           });
         } catch (error) {
           return res.status(500).json({
