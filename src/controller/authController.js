@@ -6,6 +6,7 @@ import {encode, decode} from "../helper/jwtTokenize"
 import nodemailer from "nodemailer";
 import sgMail from "@sendgrid/mail";
 import jwt from "jsonwebtoken";
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 class authController{
     static async signup(req, res){
@@ -129,17 +130,17 @@ class authController{
           await users.update({ resetlink: token }, { where: { email: email } });
     
           const mail = nodemailer.createTransport({
-            host: "smtp.outlook.com",
+            host:  process.env.HOST_MAILER,
             port: 587,
             secure: false,
             auth: {
-              user: "mirindisaidi19@outlook.com", // Your email id
-              pass: "kylexy97", // Your password
+              user: process.env.NODE_MAILER_USER, // Your email id
+              pass: process.env.NODE_MAILER_PASS, // Your password
             },
           });
     
           const data = await mail.sendMail({
-            from: "mirindisaidi19@outlook.com",
+            from: process.env.NODE_MAILER_USER,
             to: email,
             subject: "Did you forget your password.",
             text: `
