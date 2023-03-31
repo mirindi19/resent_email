@@ -12,10 +12,16 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      decribe: {
+      description: {
+        type: Sequelize.STRING
+      },
+      quantity: {
         type: Sequelize.STRING
       },
       price: {
+        type: Sequelize.STRING
+      },
+      category: {
         type: Sequelize.STRING
       },
       createdAt: {
