@@ -1,6 +1,7 @@
 import {v4 as uuidv4 } from 'uuid';
 import Models from "../db/models";
-import { Op } from 'sequelize';
+import { Op , Sequelize } from 'sequelize';
+
 const {products} =Models;
 
 export default class Products{
@@ -22,7 +23,29 @@ static async addProduct(data){
     })
     return {value};
 }
-static async searchProduct(){
-    
-}
+
+
+static async searchProducts(searchQuery, minPrice, maxPrice) {
+    if (!minPrice) {
+      minPrice = 1;
+    }
+    if (!maxPrice || maxPrice < minPrice) {
+      maxPrice = Infinity;
+    }
+    if (!searchQuery) {
+        searchQuery = '';
+    }
+    const product = await products.findAll({
+    where : {
+      [Op.or]: [
+        { name: { [Op.iLike]: `%${searchQuery}%` } },
+        { description: { [Op.iLike]: `%${searchQuery}%` } },
+        { category: { [Op.iLike]: `%${searchQuery}%` } },
+      ],
+      price: { [Op.between]: [minPrice, maxPrice] },
+    }
+    });
+
+    return product;
+  }
 }
