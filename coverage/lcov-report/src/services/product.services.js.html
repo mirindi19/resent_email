@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/30</span>
+                <span class='fraction'>22/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">19.04% </span>
+                <span class="strong">47.61% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/42</span>
+                <span class='fraction'>20/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/9</span>
+                <span class='fraction'>7/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.81% </span>
+                <span class="strong">77.27% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/22</span>
+                <span class='fraction'>17/22</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -114,8 +114,8 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">310x</span>
 <span class="cline-any cline-yes">78x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,19 +140,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,10 +159,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {v4 as uuidv4 } from 'uuid';
-import Models from "../db/models";
+<span class="branch-5 cbranch-no" title="branch not covered" ><span class="branch-4 cbranch-no" title="branch not covered" ><span class="branch-3 cbranch-no" title="branch not covered" ><span class="branch-2 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-2 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >import Models from "../db/models";</span></span></span></span></span></span></span>
 import { Op , Sequelize } from 'sequelize';
 &nbsp;
 const {products} =Models;
@@ -190,17 +190,17 @@ export default class Products<span class="cstat-no" title="statement not covered
 }
 &nbsp;
 &nbsp;
-<span class="fstat-no" title="function not covered" >static async searchProducts(s</span>earchQuery, minPrice, maxPrice<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >) {</span></span>
-<span class="cstat-no" title="statement not covered" >    if (!minPrice) {</span>
-<span class="cstat-no" title="statement not covered" >      minPrice = 1;</span>
+static async searchProducts(searchQuery, minPrice, maxPrice) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!minPrice) {
+      minPrice = 1;
     }
-<span class="cstat-no" title="statement not covered" >    if (!maxPrice || maxPrice &lt; minPrice) {</span>
-<span class="cstat-no" title="statement not covered" >      maxPrice = Infinity;</span>
+    if (!maxPrice || maxPrice &lt; minPrice) {
+      maxPrice = Infinity;
     }
-<span class="cstat-no" title="statement not covered" >    if (!searchQuery) {</span>
-<span class="cstat-no" title="statement not covered" >        searchQuery = '';</span>
-    }<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span>
-    const <span class="cstat-no" title="statement not covered" >product<span class="cstat-no" title="statement not covered" > = await p</span>roducts.findAll({</span>
+    if (!searchQuery) {
+        searchQuery = '';
+    }
+    const product = await products.findAll({
     where : {
       [Op.or]: [
         { name: { [Op.iLike]: `%${searchQuery}%` } },
@@ -211,8 +211,8 @@ export default class Products<span class="cstat-no" title="statement not covered
     }
     });
 &nbsp;
-    return product<span class="cstat-no" title="statement not covered" >;</span>
-  }<span class="fstat-no" title="function not covered" ></span>
+    return product<span class="branch-2 cbranch-no" title="branch not covered" >;</span>
+  }
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -220,7 +220,7 @@ export default class Products<span class="cstat-no" title="statement not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-01T21:49:30.837Z
+                at 2023-04-02T00:45:13.929Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

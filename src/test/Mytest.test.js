@@ -1,6 +1,8 @@
 import app from"../server";
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
+import Models from "../db/models";
+const {products} =Models;
 chai.should();
 chai.use(chaiHttp);
 
@@ -33,3 +35,42 @@ describe("PUT /auth/forgot-password",()=>{
         })
     })
   });
+
+  describe('search product', function (){
+    // let id;
+    // before(async function () {
+    //   sequelize.sync();
+    //   const testProduct = {
+    //     name:'TestProductName',
+    //     description:'DescriptionTest',
+    //     quantity:"2",
+    //     price:200,
+    //     category:'Phone',
+        
+    //   };
+    //   const product = await products.create(testProduct);
+    //   id = product.id;
+    // });
+    // after(async function () {
+    //   const product = await products.findOne({ where: { name: 'TestProductName' } });
+    //   await products.destroy({ where: { id: product.dataValues.id } });
+    // });
+    it('should return the search list', async function () {
+        const res = await chai
+          .request(app)
+          .get('/product/search?maxPrice=5000000')
+          .send();
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('message');
+      });
+      it('should not return the search list', async function () {
+        const res = await chai
+          .request(app)
+          .get('/product/search?key=pkzay')
+          .send();
+        expect(res).to.have.status(404);
+        expect(res.body).to.have.property('message');
+      });
+
+
+  })

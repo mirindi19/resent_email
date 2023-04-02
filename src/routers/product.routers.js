@@ -23,7 +23,7 @@
 *           type: number
 *     responses:
 *       "200":
-*         description: Message  sent successfully!.
+*         description: search list
  *         content:
  *           application/json:
  *             schema:
